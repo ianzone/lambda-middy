@@ -1,0 +1,41 @@
+{
+  "name": "lambda-middy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true src",
+    "postinstall": "lefthook install",
+    "commit": "git add . && git-cz"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@middy/core": "^5.2.4",
+    "@middy/http-content-negotiation": "^5.2.4",
+    "@middy/http-error-handler": "^5.2.4",
+    "@middy/http-header-normalizer": "^5.2.4",
+    "@middy/input-output-logger": "^5.2.4",
+    "http-errors": "^2.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "@serverless/typescript": "^3.38.0",
+    "@types/aws-lambda": "^8.10.133",
+    "@types/http-errors": "^2.0.4",
+    "@types/node": "^20.11.17",
+    "esbuild": "^0.20.0",
+    "git-cz": "^4.9.0",
+    "lefthook": "^1.6.1",
+    "serverless": "^3.38.0",
+    "serverless-esbuild": "^1.51.0",
+    "serverless-offline": "^13.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8"
+  }
+}
