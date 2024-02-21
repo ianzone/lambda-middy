@@ -1,16 +1,15 @@
 {
-  "name": "lambda-middy",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
+    "dev": "cross-env TS_NODE_PROJECT=serverless-blank-tsconfig.json sls offline",
+    "deploy": "sls deploy --aws-s3-accelerate",
     "lint": "biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true src",
     "postinstall": "lefthook install",
     "commit": "git add . && git-cz"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8"
+  },
   "dependencies": {
     "@middy/core": "^5.2.4",
     "@middy/http-content-negotiation": "^5.2.4",
@@ -22,10 +21,12 @@
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "@serverless/typescript": "^3.38.0",
-    "@types/aws-lambda": "^8.10.133",
+    "@tsconfig/node-lts": "^20.1.1",
+    "@types/aws-lambda": "^8.10.134",
     "@types/http-errors": "^2.0.4",
-    "@types/node": "^20.11.17",
-    "esbuild": "^0.20.0",
+    "@types/node": "^20.11.19",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.20.1",
     "git-cz": "^4.9.0",
     "lefthook": "^1.6.1",
     "serverless": "^3.38.0",
@@ -33,9 +34,5 @@
     "serverless-offline": "^13.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
-  },
-  "engines": {
-    "node": ">=20",
-    "pnpm": ">=8"
   }
 }

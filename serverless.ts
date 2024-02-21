@@ -1,8 +1,8 @@
 import type { AWS } from '@serverless/typescript';
 
 const serverlessConfiguration: AWS = {
-  app: 'app-name',
-  service: '${self:app}-endpoints',
+  app: 'app',
+  service: '${self:app}-functions',
 
   frameworkVersion: '3',
   configValidationMode: 'error',
@@ -10,6 +10,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs20.x',
+    memorySize: 512,
     architecture: 'arm64',
     timeout: 900,
     tags: {
@@ -19,6 +20,7 @@ const serverlessConfiguration: AWS = {
     },
     logRetentionInDays: 60,
     environment: {
+      STAGE: '${sls:stage}',
       NODE_OPTIONS: '--enable-source-maps',
     },
     iam: {
@@ -28,25 +30,22 @@ const serverlessConfiguration: AWS = {
     },
   },
 
-  package: {
-    individually: true,
-  },
-
   functions: {
     hello: {
-      handler: 'src/hello.handler',
+      handler: 'src/lambdas/hello.handler',
       url: {
         cors: { allowCredentials: true },
       },
-      events: [
-        {
-          httpApi: {
-            method: 'ANY',
-            path: '/',
-          },
-        },
-      ],
+      // events: [
+      //   {
+      //     httpApi: '*',
+      //   },
+      // ],
     },
+  },
+
+  package: {
+    individually: true,
   },
 
   // https://github.com/floydspace/serverless-esbuild
@@ -54,7 +53,6 @@ const serverlessConfiguration: AWS = {
 
   custom: {
     esbuild: {
-      bundle: true,
       minify: true,
       sourcemap: true,
       packager: 'pnpm',
@@ -62,5 +60,15 @@ const serverlessConfiguration: AWS = {
     },
   },
 };
+
+const functions = serverlessConfiguration.functions;
+for (const name in functions) {
+  if (Object.prototype.hasOwnProperty.call(functions, name)) {
+    const fn = functions[name];
+    if (fn.name === undefined) {
+      fn.name = `\${self:app}-\${sls:stage}-${name}`;
+    }
+  }
+}
 
 module.exports = serverlessConfiguration;

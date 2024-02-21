@@ -1,0 +1,14 @@
+{
+  // https://www.typescriptlang.org/tsconfig
+  "extends": "@tsconfig/node-lts/tsconfig.json",
+  "compilerOptions": {
+    // Modules
+    "baseUrl": ".",
+    // Output
+    "outDir": "dist",
+    "module": "es2022",
+    "moduleResolution": "node",
+    "incremental": true,
+    "sourceMap": true,
+  }
+}
