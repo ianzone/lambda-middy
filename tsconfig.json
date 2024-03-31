@@ -9,6 +9,6 @@
     "module": "es2022",
     "moduleResolution": "node",
     "incremental": true,
-    "sourceMap": true,
+    "sourceMap": true
   }
 }
